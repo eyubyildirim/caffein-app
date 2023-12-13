@@ -1,7 +1,7 @@
 import React, { type FunctionComponent } from "react";
 import { View, Text } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
-import { SignedOutStackProps } from "../../Router";
+import { SignedOutStackProps } from "../../../Router";
 
 const ForgotPassword: FunctionComponent<
   StackScreenProps<SignedOutStackProps, "ForgotPassword">

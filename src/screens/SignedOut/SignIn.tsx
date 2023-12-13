@@ -1,12 +1,13 @@
-import { StackScreenProps } from "@react-navigation/stack";
-import { FunctionComponent, useState } from "react";
-import { Modal, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { SignedOutStackProps } from "../../Router";
-import SignInButton from "../components/button/SignInButton";
-import CustomInput from "../components/input/CustomInput";
-import { BlurView } from "expo-blur";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import useTailwindColor from "../util/hook/useTailwindColor";
+import { StackScreenProps } from "@react-navigation/stack";
+import { BlurView } from "expo-blur";
+import { FunctionComponent, useContext, useState } from "react";
+import { Modal, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { SignedOutStackProps } from "../../../Router";
+import SignInButton from "../../components/button/SignInButton";
+import CustomInput from "../../components/input/CustomInput";
+import useTailwindColor from "../../util/hook/useTailwindColor";
+import UserContext from "../../util/context/user";
 
 const SignIn: FunctionComponent<
   StackScreenProps<SignedOutStackProps, "SignIn">
@@ -15,6 +16,8 @@ const SignIn: FunctionComponent<
   const [password, setPassword] = useState("");
 
   const [open, setOpen] = useState(false);
+
+  const { setUser } = useContext(UserContext);
 
   return (
     <ScrollView
@@ -47,14 +50,14 @@ const SignIn: FunctionComponent<
         value={email}
         iconName="email"
         setValue={setEmail}
-        placeholder="Kullanıcı adı"
+        placeholder="Email"
       />
       <CustomInput
         value={password}
         iconName="lock"
         setValue={setPassword}
         isPassword
-        placeholder="Şifre"
+        placeholder="Password"
       />
       <TouchableOpacity
         className="bg-teal-500 rounded-full w-full py-3 flex flex-row items-center justify-center"
@@ -125,6 +128,13 @@ const SignIn: FunctionComponent<
                 className="bg-teal-500 rounded-full w-full py-3 flex flex-row items-center justify-center"
                 onPress={() => {
                   setOpen(false);
+                  setUser({
+                    name: "Eyub Yildirim",
+                    email: "eyub2001@gmail.com",
+                    phoneNumber: "1234567890",
+                    likedShops: [],
+                    likedCoffees: [],
+                  });
                 }}
               >
                 <Text className="text-white font-semibold">Go to Caffein</Text>

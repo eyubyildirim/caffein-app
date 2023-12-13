@@ -1,16 +1,10 @@
 import { FunctionComponent, useRef, useState } from "react";
-import {
-  TextInput,
-  TextInputProps,
-  TouchableOpacity,
-  View,
-  useColorScheme,
-} from "react-native";
+import { TextInput, TextInputProps, TouchableOpacity } from "react-native";
 import useTailwindColor from "../../util/hook/useTailwindColor";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 interface CustomInputProps extends TextInputProps {
-  iconName: keyof typeof MaterialCommunityIcons.glyphMap;
+  iconName?: keyof typeof MaterialCommunityIcons.glyphMap;
   setValue: (value: string) => void;
   isPassword?: boolean;
 }
@@ -40,9 +34,7 @@ const CustomInput: FunctionComponent<CustomInputProps> = ({
       className={`
         w-full rounded-lg items-center
         flex flex-row px-4 dark:bg-neutral-800 border ${
-          focus
-            ? "border-teal-500 bg-teal-100"
-            : "border-transparent bg-gray-50"
+          focus ? "border-teal-500 bg-teal-100" : "border-white bg-gray-50"
         }
       `}
       style={{
@@ -54,11 +46,13 @@ const CustomInput: FunctionComponent<CustomInputProps> = ({
         textInput.current?.focus();
       }}
     >
-      <MaterialCommunityIcons
-        name={iconName}
-        color={focus ? focusColor : value !== "" ? activeColor : passiveColor}
-        size={18}
-      />
+      {iconName && (
+        <MaterialCommunityIcons
+          name={iconName}
+          color={focus ? focusColor : value !== "" ? activeColor : passiveColor}
+          size={18}
+        />
+      )}
       <TextInput
         className={`flex-1`}
         style={{
